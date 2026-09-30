@@ -2,9 +2,9 @@ import { useLogin } from '@/hooks';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { View, Text } from 'react-native';
-import Card from '../Card';
 import Button from '../Button';
 import TextInput from '../TextInput';
+import GradientCard from '../GradientCard';
 
 export default function Login() {
   // States
@@ -30,7 +30,7 @@ export default function Login() {
 
   return (
     <View className="flex-1 items-center justify-center">
-      <Card className="w-1/2">
+      <GradientCard className="w-1/2">
         <View className="flex-1">
           <View className="flex-1 gap-4">
             <TextInput
@@ -44,7 +44,9 @@ export default function Login() {
               onChangeText={setPassword}
               secureTextEntry
             />
-            {isLoginError ? <Text className='text-bear'>{loginError?.message}</Text> : null}
+            {isLoginError ? (
+              <Text className="text-bear">{loginError?.message}</Text>
+            ) : null}
             <Button
               title={isLoginPending ? 'Logging in...' : 'Login'}
               buttonClassName="self-center w-1/2 mt-4"
@@ -59,7 +61,7 @@ export default function Login() {
             />
           </View>
         </View>
-      </Card>
+      </GradientCard>
     </View>
   );
 }

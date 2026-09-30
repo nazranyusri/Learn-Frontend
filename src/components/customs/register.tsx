@@ -3,9 +3,9 @@ import { RegisterRequest } from '@/schemas';
 import { isValidEmail, isValidPassword } from '@/utils/validator';
 import { useState } from 'react';
 import { View, Text } from 'react-native';
-import Card from '../Card';
 import Button from '../Button';
 import TextInput from '../TextInput';
+import GradientCard from '../GradientCard';
 
 export default function Register() {
   // State
@@ -50,7 +50,7 @@ export default function Register() {
 
   return (
     <View className="flex-1 items-center justify-center">
-      <Card className="w-1/2">
+      <GradientCard className="w-1/2">
         <View className="flex-1 gap-4">
           <TextInput
             placeholder="Enter your email..."
@@ -91,7 +91,7 @@ export default function Register() {
             </View>
           ) : null}
         </View>
-      </Card>
+      </GradientCard>
     </View>
   );
 }
