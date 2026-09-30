@@ -1,3 +1,3 @@
 export type { HealthResponse } from './health';
-export type { LoginRequest, LoginResponse } from './auth';
-export type { ApiError, ApiErrorResponse } from './error';
+export type { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from './auth';
+export type { ApiError, ApiErrorResponse, ApiResponse } from './api';

@@ -8,3 +8,11 @@ export type ApiError = {
 export type ApiErrorResponse = {
   error: ApiError;
 };
+
+export type ApiResponse<T> = {
+  success: boolean;
+  requestId: string;
+  title: string;
+  message: string;
+  response: T;
+};

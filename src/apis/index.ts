@@ -1,2 +1,2 @@
 export { getHealth } from './health';
-export { login } from './auth';
+export { login, register } from './auth';

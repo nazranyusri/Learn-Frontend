@@ -1,5 +1,5 @@
 import { noAuthorizationRequired } from '@/constants';
-import type { ApiErrorResponse } from '@/schemas';
+import type { ApiErrorResponse, ApiResponse } from '@/schemas';
 import { useAuthStore } from '@/stores';
 import { ApiRequestError } from './apiError';
 
@@ -54,8 +54,7 @@ export async function http<T>(
   const response = await fetch(url, {
     method: options.method ?? 'GET',
     headers,
-    body:
-      options.body === undefined ? undefined : JSON.stringify(options.body),
+    body: options.body === undefined ? undefined : JSON.stringify(options.body),
   });
 
   if (response.status === 401) {
@@ -81,5 +80,7 @@ export async function http<T>(
     );
   }
 
-  return response.json() as Promise<T>;
+  const responseBody = (await response.json()) as ApiResponse<T>;
+
+  return responseBody.response;
 }
