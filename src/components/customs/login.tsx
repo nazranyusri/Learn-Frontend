@@ -30,7 +30,7 @@ export default function Login() {
 
   return (
     <View className="flex-1 items-center justify-center">
-      <GradientCard className="w-1/2">
+      <GradientCard className="min-w-1/2">
         <View className="flex-1">
           <View className="flex-1 gap-4">
             <TextInput

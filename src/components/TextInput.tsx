@@ -6,7 +6,9 @@ interface TextInputProps {
   onChangeText: (text: string) => void;
   onBlur?: () => void;
   secureTextEntry?: boolean;
+  successMessage?: string;
   errorMessage?: string;
+  editable?: boolean;
 }
 
 export default function TextInput({
@@ -15,7 +17,9 @@ export default function TextInput({
   onChangeText,
   onBlur,
   secureTextEntry = false,
+  successMessage,
   errorMessage,
+  editable = true,
 }: TextInputProps) {
   return (
     <View>
@@ -27,7 +31,11 @@ export default function TextInput({
         onChangeText={onChangeText}
         onBlur={onBlur}
         secureTextEntry={secureTextEntry}
+        editable={editable}
       />
+      {successMessage ? (
+        <Text className="pt-2 text-sm text-bull">{successMessage}</Text>
+      ) : undefined}
       {errorMessage ? (
         <Text className="pt-2 text-sm text-bear">{errorMessage}</Text>
       ) : undefined}

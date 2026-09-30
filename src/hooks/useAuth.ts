@@ -1,5 +1,10 @@
 import { login, register } from '@/apis';
-import type { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '@/schemas';
+import type {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+} from '@/schemas';
 import { ApiRequestError } from '@/services';
 import { useAuthStore } from '@/stores';
 import { useMutationTemplate } from './useMutationTemplate';
@@ -16,7 +21,6 @@ export function useLogin() {
     },
   });
 
-
   return {
     login: mutation.mutate,
     isLoginPending: mutation.isPending,
@@ -27,9 +31,15 @@ export function useLogin() {
 }
 
 export function useRegister() {
-  // Implement register logic here
-  const mutation = useMutationTemplate<RegisterResponse, ApiRequestError, RegisterRequest>({
+  const mutation = useMutationTemplate<
+    RegisterResponse,
+    ApiRequestError,
+    RegisterRequest
+  >({
     mutationFn: register,
+    onSuccess: (data) => {
+      useAuthStore.getState().setAccessToken(data.accessToken);
+    },
   });
 
   return {
