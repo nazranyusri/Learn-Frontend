@@ -1,5 +1,10 @@
 import { endpoints } from '@/constants';
-import type { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '@/schemas';
+import type {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+} from '@/schemas';
 import { http } from '@/services';
 
 export function login(body: LoginRequest) {
@@ -10,7 +15,7 @@ export function login(body: LoginRequest) {
 }
 
 export function register(body: RegisterRequest) {
-  return http <RegisterResponse>(endpoints.register, {
+  return http<RegisterResponse>(endpoints.register, {
     method: 'POST',
     body,
   });

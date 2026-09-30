@@ -136,8 +136,8 @@ export default function Register() {
           />
           {isRegisterError ? (
             <View>
-              <Text>{registerError?.title}</Text>
-              <Text>{registerError?.message}</Text>
+              <Text className="text-bear">{registerError?.title}</Text>
+              <Text className="text-bear">{registerError?.detail}</Text>
             </View>
           ) : null}
         </View>

@@ -45,7 +45,7 @@ export default function Login() {
               secureTextEntry
             />
             {isLoginError ? (
-              <Text className="text-bear">{loginError?.message}</Text>
+              <Text className="text-bear">{loginError?.detail}</Text>
             ) : null}
             <Button
               title={isLoginPending ? 'Logging in...' : 'Login'}

@@ -1,18 +1,21 @@
+export type ApiSuccess<T> = {
+  status: number;
+  requestId: string;
+  data: T;
+};
+
+export type ApiFieldError = {
+  field: string;
+  message: string;
+};
+
 export type ApiError = {
+  status: number;
+  requestId: string;
+  title: string;
+  detail: string;
   code: string;
-  title: string;
-  message: string;
-  requestId: string;
+  errors: ApiFieldError[];
 };
 
-export type ApiErrorResponse = {
-  error: ApiError;
-};
-
-export type ApiResponse<T> = {
-  success: boolean;
-  requestId: string;
-  title: string;
-  message: string;
-  response: T;
-};
+export type ApiResponse<T> = ApiSuccess<T> | ApiError;
