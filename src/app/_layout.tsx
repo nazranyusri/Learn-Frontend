@@ -17,13 +17,13 @@ export default function RootLayout() {
           <ActivityIndicator />
         </View>
       ) : (
-        <Stack>
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Protected guard={isAuthenticated}>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" />
           </Stack.Protected>
           <Stack.Protected guard={!isAuthenticated}>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="register" options={{ headerShown: false }} />
+            <Stack.Screen name="index" />
+            <Stack.Screen name="register" />
           </Stack.Protected>
         </Stack>
       )}
