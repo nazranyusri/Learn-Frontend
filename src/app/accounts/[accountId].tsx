@@ -92,7 +92,7 @@ export default function AccountDetailScreen() {
               <Text className="text-text-secondary text-xs font-medium">
                 Opening Balance
               </Text>
-              <Text className="text-3xl font-extrabold text-bull font-mono mt-1">
+              <Text className="text-3xl font-extrabold text-accent-primary font-mono mt-1">
                 RM {accountData?.openingBalance ?? 0.0}
               </Text>
             </View>
