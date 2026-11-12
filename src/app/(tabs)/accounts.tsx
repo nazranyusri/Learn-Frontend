@@ -47,11 +47,11 @@ export default function AccountsScreen() {
         onPress={() =>
           router.push({
             pathname: '/accounts/[accountId]',
-            params: { accountId: account.accountId }, // Must match [id].tsx
+            params: { accountId: account.accountId },
           })
         }
       >
-        <View className="flex-row justify-between items-center mb-3">
+        <View className="flex-row justify-between items-center pb-4">
           <Text
             className="text-text-primary text-lg font-semibold flex-1"
             numberOfLines={1}
@@ -61,12 +61,12 @@ export default function AccountsScreen() {
           <Tag variant="basic" label={account.accountType} />
         </View>
 
-        <View className="flex-row justify-between items-center mb-3 pb-3 border-b border-core-stroke">
+        <View className="flex-row justify-between items-center mb-4 pb-4 border-b border-core-stroke">
           <View className="flex-1">
-            <Text className="text-text-secondary text-xs mb-0.5">
+            <Text className="text-text-secondary text-xs">
               Opening Balance
             </Text>
-            <Text className="text-accent-primary font-mono text-2xl font-bold">
+            <Text className="text-accent-primary font-mono text-2xl font-bold mt-1">
               RM{account.openingBalance}
             </Text>
           </View>
@@ -77,13 +77,13 @@ export default function AccountsScreen() {
 
         <View className="flex-row justify-between items-center">
           <Text
-            className="text-text-secondary text-[11px]"
+            className="text-text-secondary text-xs"
             numberOfLines={1}
             ellipsizeMode="middle"
           >
             ID: {account.accountId}
           </Text>
-          <Text className="text-text-secondary text-[11px]">
+          <Text className="text-text-secondary text-xs">
             Updated: {new Date(account.updateAtDate).toLocaleDateString()}
           </Text>
         </View>
@@ -95,12 +95,12 @@ export default function AccountsScreen() {
     <Layout>
       <View className="gap-4">
         <View>
-          <Text className="text-3xl font-bold text-text-primary">Accounts</Text>
+          <Text className="text-4xl font-bold text-text-primary">Accounts</Text>
           <Text className="text-text-secondary text-sm mt-1">
             Manage bank accounts, e-wallets, cash, and others here
           </Text>
         </View>
-        <View className="gap-4">
+        <View className="gap-6">
           {renderAccountCards()}
           <Card
             onPress={handleAddAccount}

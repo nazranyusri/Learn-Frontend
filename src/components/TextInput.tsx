@@ -3,7 +3,7 @@ import { Text, TextInput as RNTextInput, View } from 'react-native';
 interface TextInputProps {
   placeholder?: string;
   value?: string;
-  onChangeText: (text: string) => void;
+  onChangeText?: (text: string) => void;
   onBlur?: () => void;
   secureTextEntry?: boolean;
   successMessage?: string;

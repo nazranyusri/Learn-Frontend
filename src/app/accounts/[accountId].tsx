@@ -1,18 +1,18 @@
-import { View, Text, Alert } from 'react-native';
-import { useLocalSearchParams, useRouter, Href } from 'expo-router';
+import { View, Text } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import Layout from '@/components/Layout';
 import BasicHeader from '@/components/BasicHeader';
 import Card from '@/components/Card';
 import Button from '@/components/Button';
 import { useAccountById } from '@/hooks/useAccount';
+import { formatDate } from '@/utils/formatter';
+import Tag from '@/components/Tag';
 
 export default function AccountDetailScreen() {
   const router = useRouter();
   const { accountId } = useLocalSearchParams<{ accountId: string }>();
   const { accountData, isAccountError, accountError } =
     useAccountById(accountId);
-
-    console.log(accountData);
 
   // Mock transaction data mapped to your transactions schema
   const mockTransactions = [
@@ -57,37 +57,13 @@ export default function AccountDetailScreen() {
   const handleEdit = () => {
     router.push({
       pathname: '/accounts/edit/[accountId]',
-      params: { accountId: accountData?.accountId },
-    } as unknown as Href);
+      params: { accountId: accountData?.accountId ?? '' },
+    });
   };
-
-  const handleDeletePrompt = () => {
-    Alert.alert(
-      'Delete Account',
-      'Are you sure you want to delete this account? This action cannot be undone.',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: () => {
-            // TODO: Trigger delete mutation here
-            router.back();
-          },
-        },
-      ],
-    );
-  };
-
-  const formattedDate = accountData?.updateAtDate
-    ? new Date(accountData.updateAtDate).toLocaleDateString()
-    : '-';
 
   return (
     <Layout>
       <BasicHeader defaultBackRoute="/accounts" />
-
-      {/* Header Titles */}
       <View className="mt-2">
         <Text className="text-3xl font-bold text-text-primary">
           Account Overview
@@ -98,81 +74,82 @@ export default function AccountDetailScreen() {
       </View>
 
       <View className="gap-6 mt-6">
-        {/* Main Info Card */}
-        <Card className="gap-5 bg-core-surface border-core-stroke">
-          <View className="flex-row justify-between items-start">
-            <View>
-              <Text className="text-text-secondary text-xs uppercase tracking-wider font-medium">
-                Account Name
+        {!isAccountError ? (
+          <Card className="gap-4 bg-core-surface border-core-stroke">
+            <View className="flex-row justify-between items-start">
+              <View>
+                <Text className="text-text-secondary text-xs font-medium">
+                  Account Name
+                </Text>
+                <Text className="text-2xl font-bold text-text-primary mt-1">
+                  {accountData?.accountName ?? ''}
+                </Text>
+              </View>
+              <Tag variant="basic" label={accountData?.accountType ?? ''} />
+            </View>
+
+            <View className="border-t border-core-stroke pt-4">
+              <Text className="text-text-secondary text-xs font-medium">
+                Opening Balance
               </Text>
-              <Text className="text-2xl font-bold text-text-primary mt-1">
-                {accountData?.accountName ?? ''}
+              <Text className="text-3xl font-extrabold text-bull font-mono mt-1">
+                RM {accountData?.openingBalance ?? 0.0}
               </Text>
             </View>
-            <View className="bg-core-stroke/60 px-3 py-1 rounded-full border border-core-stroke">
-              <Text className="text-xs text-text-primary font-semibold tracking-wide">
-                {accountData?.accountType ?? ''}
+
+            <View className="flex-row justify-between pt-4 border-t border-core-stroke text-xs items-center">
+              <Text className="text-text-secondary">
+                Type:{' '}
+                <Text className="text-text-primary font-medium">
+                  {accountData?.isSavingsAccount
+                    ? 'Savings Account'
+                    : 'Standard Account'}
+                </Text>
+              </Text>
+              <Text className="text-text-secondary">
+                Updated:{' '}
+                <Text className="text-text-primary font-medium font-mono">
+                  {formatDate(accountData?.updateAtDate)}
+                </Text>
               </Text>
             </View>
-          </View>
-
-          <View className="border-t border-core-stroke pt-4">
-            <Text className="text-text-secondary text-xs uppercase tracking-wider font-medium">
-              Opening Balance
+          </Card>
+        ) : (
+          <Card className="items-center justify-center">
+            <Text className="text-bear text-base font-semibold mb-1">
+              Failed to load accounts
             </Text>
-            <Text className="text-3xl font-extrabold text-bull font-mono mt-1">
-              RM {accountData?.openingBalance ?? 0.0}
+            <Text className="text-text-secondary text-xs text-center">
+              {accountError?.message ||
+                'Please check your connection and try again.'}
             </Text>
-          </View>
-
-          <View className="flex-row justify-between pt-3 border-t border-core-stroke text-xs items-center">
-            <Text className="text-text-secondary">
-              Type:{' '}
-              <Text className="text-text-primary font-medium">
-                {accountData?.isSavingsAccount
-                  ? 'Savings Account'
-                  : 'Standard Account'}
-              </Text>
-            </Text>
-            <Text className="text-text-secondary">
-              Updated:{' '}
-              <Text className="text-text-primary font-medium font-mono">
-                {formattedDate}
-              </Text>
-            </Text>
-          </View>
-        </Card>
+          </Card>
+        )}
 
         {/* Quick Actions Toolbar */}
-        <View className="flex-row gap-3">
+        <View className="flex-row gap-4">
           <Button
-            variant="ghost"
+            variant="outline"
             title="Edit Account"
             icon="pencil-outline"
-            onPress={handleEdit}
             isFullWidth={false}
-            buttonClassName="flex-1 bg-core-surface border border-core-stroke !rounded-2xl py-4 shadow-sm"
+            buttonClassName="flex-1"
+            onPress={handleEdit}
           />
 
           <Button
             variant="primary"
             title="Add Transaction"
             icon="add-circle-outline"
-            onPress={() =>
-              Alert.alert(
-                'Quick Action',
-                'Navigate to Add Transaction filtered for this account',
-              )
-            }
-            isFullWidth={false}
-            buttonClassName="flex-1 !rounded-2xl py-4 shadow-sm"
             iconColor="#FFFFFF"
+            buttonClassName="flex-1"
+            onPress={() => {}}
           />
         </View>
 
         {/* Account-Specific Transactions Feed */}
-        <View className="gap-3">
-          <View className="flex-row justify-between items-center px-1">
+        <View className="gap-4">
+          <View className="flex-row justify-between items-center">
             <Text className="text-text-primary text-base font-bold">
               Recent Activity
             </Text>
@@ -251,10 +228,10 @@ export default function AccountDetailScreen() {
         </View>
 
         {/* Danger Zone Card (Delete Action Isolated) */}
-        <Card className="border-bear/30 bg-bear/5 gap-3 mb-6">
+        <Card className="gap-4">
           <View>
             <Text className="text-bear text-sm font-bold">Danger Zone</Text>
-            <Text className="text-text-secondary text-xs mt-0.5">
+            <Text className="text-text-secondary text-xs mt-1">
               Deleting this account will permanently remove its ledger history
               and transaction data tracking.
             </Text>
@@ -263,7 +240,7 @@ export default function AccountDetailScreen() {
           <Button
             variant="secondary"
             title="Delete Account"
-            onPress={handleDeletePrompt}
+            onPress={() => {}}
             isFullWidth
           />
         </Card>

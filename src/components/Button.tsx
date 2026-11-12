@@ -5,7 +5,7 @@ import { ComponentProps } from 'react';
 type IoniconName = ComponentProps<typeof Ionicons>['name'];
 
 interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'link';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
   isFullWidth?: boolean;
   buttonClassName?: string;
   title: string;
@@ -38,11 +38,15 @@ export default function Button({
       case 'secondary':
         baseStyles += ' bg-accent-secondary pressed:bg-accent-secondary-hover';
         break;
+      case 'outline':
+        baseStyles += ' bg-core-surface border border-core-stroke';
+        break;
       case 'ghost':
         baseStyles += ' bg-transparent pressed:bg-core-stroke';
         break;
       case 'link':
-        baseStyles += ' !p-0 bg-transparent rounded-none pressed:opacity-70 self-auto';
+        baseStyles +=
+          ' !p-0 bg-transparent rounded-none pressed:opacity-70 self-auto';
         break;
       default:
         baseStyles += ' bg-accent-primary pressed:bg-accent-primary-hover';
@@ -60,6 +64,8 @@ export default function Button({
       case 'secondary':
         baseStyles += ' text-text-secondary';
         break;
+      case 'outline':
+        baseStyles += ' text-text-primary';
       case 'ghost':
         baseStyles += ' text-text-primary';
         break;
@@ -92,11 +98,7 @@ export default function Button({
       accessibilityRole={variant === 'link' ? 'link' : 'button'}
     >
       {icon && (
-        <Ionicons
-          name={icon}
-          size={iconSize}
-          color={getDefaultIconColor()}
-        />
+        <Ionicons name={icon} size={iconSize} color={getDefaultIconColor()} />
       )}
       <Text className={getTextStyles()}>{title}</Text>
     </Pressable>
