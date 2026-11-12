@@ -5,8 +5,8 @@ import Layout from '@/components/Layout';
 export default function MoreScreen() {
   return (
     <Layout>
-      <View className="gap-4 py-6">
-        <Text className="text-3xl font-bold text-white">More</Text>
+      <View className="gap-4">
+        <Text className="text-3xl font-bold text-text-primary">More</Text>
         <Card>
           <Text className="text-base text-text-primary">
             Budgets, recurring transactions, reports, settings, and profile.

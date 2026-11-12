@@ -16,10 +16,12 @@ export default function Layout({ children }: LayoutProps): React.ReactNode {
         style={StyleSheet.absoluteFill}
       />
       <ScrollView
-        className="flex-1 w-full h-full min-h-screen px-4"
+        className="flex-1 w-full h-full min-h-screen px-4 py-6"
         contentContainerClassName="flex-grow w-full"
       >
-        <View className="flex-1">{children}</View>
+        <View className="flex-1" style={{ paddingBottom: 100 }}>
+          {children}
+        </View>
       </ScrollView>
     </View>
   );

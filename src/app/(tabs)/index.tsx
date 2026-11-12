@@ -9,8 +9,8 @@ export default function HomeScreen() {
 
   return (
     <Layout>
-      <View className="gap-4 py-6">
-        <Text className="text-3xl font-bold text-white">Goals</Text>
+      <View className="gap-4">
+        <Text className="text-3xl font-bold text-text-primary">Goals</Text>
         <Card>
           <Text className="text-base text-text-primary">
             Dashboard: total wealth, income, spending, savings progress,

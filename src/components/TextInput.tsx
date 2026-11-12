@@ -24,7 +24,7 @@ export default function TextInput({
   return (
     <View>
       <RNTextInput
-        className="h-12 rounded-lg border border-core-stroke bg-core-input px-4 text-text-primary"
+        className="h-12 rounded-lg border border-core-stroke bg-core-input px-4 py-3 text-text-primary"
         placeholder={placeholder}
         placeholderTextColor="#848E9C"
         value={value}

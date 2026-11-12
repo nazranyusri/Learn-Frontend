@@ -2,6 +2,7 @@ import { Pressable, Text } from 'react-native';
 
 interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'ghost' | 'link';
+  isFullWidth?: boolean;
   buttonClassName?: string;
   title: string;
   onPress: () => void;
@@ -11,13 +12,15 @@ interface ButtonProps {
 
 export default function Button({
   variant,
+  isFullWidth = false,
   buttonClassName,
   title,
   onPress,
   disabled,
 }: ButtonProps) {
   const getButtonStyles = () => {
-    let baseStyles = 'self-start rounded-lg py-2 px-4 text-center';
+    let baseStyles = `${isFullWidth ? 'w-full' : 'self-start'} rounded-lg py-4 px-4 items-center justify-center`;
+    
     switch (variant) {
       case 'primary':
         baseStyles += ' bg-accent-primary pressed:bg-accent-primary-hover';
@@ -29,7 +32,7 @@ export default function Button({
         baseStyles += ' bg-transparent pressed:bg-core-stroke';
         break;
       case 'link':
-        baseStyles += ' !p-0 bg-transparent rounded-none pressed:opacity-70';
+        baseStyles += ' !p-0 bg-transparent rounded-none pressed:opacity-70 self-auto';
         break;
       default:
         baseStyles += ' bg-accent-primary pressed:bg-accent-primary-hover';
