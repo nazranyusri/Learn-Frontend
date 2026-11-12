@@ -42,7 +42,15 @@ export default function AccountsScreen() {
     }
 
     return accountData?.map((account, index) => (
-      <Card key={`${account.accountId}-${index}`}>
+      <Card
+        key={`${account.accountId}-${index}`}
+        onPress={() =>
+          router.push({
+            pathname: '/accounts/[accountId]',
+            params: { accountId: account.accountId }, // Must match [id].tsx
+          })
+        }
+      >
         <View className="flex-row justify-between items-center mb-3">
           <Text
             className="text-text-primary text-lg font-semibold flex-1"
@@ -95,7 +103,6 @@ export default function AccountsScreen() {
         <View className="gap-4">
           {renderAccountCards()}
           <Card
-            isButton={true}
             onPress={handleAddAccount}
             className="!bg-accent-primary"
           >

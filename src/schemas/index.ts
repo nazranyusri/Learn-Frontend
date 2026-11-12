@@ -8,6 +8,7 @@ export type {
 export type { ApiError, ApiFieldError, ApiResponse, ApiSuccess } from './api';
 export type {
   GetAccountsResponse,
+  GetAccountResponse,
   AddAccountRequest,
   AddAccountResponse,
   UseAddAccountOptions

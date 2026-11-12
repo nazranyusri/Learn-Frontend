@@ -1,10 +1,17 @@
 import { Pressable, Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { ComponentProps } from 'react';
+
+type IoniconName = ComponentProps<typeof Ionicons>['name'];
 
 interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'ghost' | 'link';
   isFullWidth?: boolean;
   buttonClassName?: string;
   title: string;
+  icon?: IoniconName;
+  iconSize?: number;
+  iconColor?: string;
   onPress: () => void;
   disabled?: boolean;
   isLoading?: boolean;
@@ -15,12 +22,15 @@ export default function Button({
   isFullWidth = false,
   buttonClassName,
   title,
+  icon,
+  iconSize = 16,
+  iconColor,
   onPress,
   disabled,
 }: ButtonProps) {
   const getButtonStyles = () => {
-    let baseStyles = `${isFullWidth ? 'w-full' : 'self-start'} rounded-lg py-4 px-4 items-center justify-center`;
-    
+    let baseStyles = `${isFullWidth ? 'w-full' : 'self-start'} rounded-lg py-4 px-4 flex-row items-center justify-center gap-2`;
+
     switch (variant) {
       case 'primary':
         baseStyles += ' bg-accent-primary pressed:bg-accent-primary-hover';
@@ -62,6 +72,18 @@ export default function Button({
     return baseStyles;
   };
 
+  const getDefaultIconColor = () => {
+    if (iconColor) return iconColor;
+    switch (variant) {
+      case 'secondary':
+        return '#9CA3AF';
+      case 'link':
+        return '#3B82F6';
+      default:
+        return '#FFFFFF';
+    }
+  };
+
   return (
     <Pressable
       className={`${getButtonStyles()} ${buttonClassName || ''} disabled:opacity-50`}
@@ -69,6 +91,13 @@ export default function Button({
       disabled={disabled}
       accessibilityRole={variant === 'link' ? 'link' : 'button'}
     >
+      {icon && (
+        <Ionicons
+          name={icon}
+          size={iconSize}
+          color={getDefaultIconColor()}
+        />
+      )}
       <Text className={getTextStyles()}>{title}</Text>
     </Pressable>
   );

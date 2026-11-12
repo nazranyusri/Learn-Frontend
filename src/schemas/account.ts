@@ -12,6 +12,15 @@ export type GetAccountsResponse = {
   isSavingsAccount: boolean;
 }[];
 
+export type GetAccountResponse = {
+  accountId: string;
+  accountName: string;
+  accountType: string;
+  openingBalance: string;
+  updateAtDate: string;
+  isSavingsAccount: boolean;
+};
+
 export type AddAccountRequest = {
   accountName: string;
   openingBalance: number;

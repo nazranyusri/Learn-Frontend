@@ -3,18 +3,16 @@ import { View, Pressable } from 'react-native';
 interface CardProps {
   className?: string;
   children: React.ReactNode;
-  isButton?: boolean;
   onPress?: () => void;
 }
 
 export default function Card({
   className,
   children,
-  isButton = false,
   onPress,
 }: CardProps) {
-  const Container = isButton ? Pressable : View;
-  const containerProps = isButton ? { onPress } : {};
+  const Container = onPress ? Pressable : View;
+  const containerProps = onPress ? { onPress } : {};
 
   return (
     <Container

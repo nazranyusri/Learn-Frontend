@@ -1,7 +1,7 @@
 import { AddAccountRequest, AddAccountResponse } from '@/schemas';
 import { useMutationTemplate } from './useMutationTemplate';
 import { useQueryTemplate } from './useQueryTemplate';
-import { addAccount, getAccounts } from '@/apis';
+import { addAccount, getAccounts, getAccount } from '@/apis';
 import { ApiRequestError } from '@/services';
 import { UseAddAccountOptions } from '@/schemas/account';
 import { useQueryClient } from '@tanstack/react-query';
@@ -12,6 +12,23 @@ export function useAccount(enabled = true) {
   const data = useQueryTemplate({
     queryKey: accountKey,
     queryFn: getAccounts,
+    enabled,
+  });
+
+  return {
+    isAccountPending: data.isPending,
+    isAccountError: data.isError,
+    accountError: data.error,
+    accountData: data.data,
+  };
+}
+
+export function useAccountById(accountId: string, enabled = true) {
+  const accountKey = ['account', accountId];
+
+  const data = useQueryTemplate({
+    queryKey: accountKey,
+    queryFn: () => getAccount(accountId),
     enabled,
   });
 
